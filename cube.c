@@ -134,11 +134,23 @@ int main(int argc,char **argv)
           new_cube[FACE_COLOR_ORANGE][0][0] = old_cube[FACE_COLOR_BLUE][2][0];
           new_cube[FACE_COLOR_ORANGE][1][0] = old_cube[FACE_COLOR_BLUE][2][1];
           new_cube[FACE_COLOR_ORANGE][2][0] = old_cube[FACE_COLOR_BLUE][2][2];
+
+          new_cube[FACE_COLOR_GREEN][0][2] = old_cube[FACE_COLOR_PURPLE][0][0];
+          new_cube[FACE_COLOR_GREEN][1][2] = old_cube[FACE_COLOR_PURPLE][0][1];
+          new_cube[FACE_COLOR_GREEN][2][2] = old_cube[FACE_COLOR_PURPLE][0][2];
+
+          new_cube[FACE_COLOR_BLUE][2][0] = old_cube[FACE_COLOR_GREEN][2][2];
+          new_cube[FACE_COLOR_BLUE][2][1] = old_cube[FACE_COLOR_GREEN][0][2];
+          new_cube[FACE_COLOR_BLUE][2][2] = old_cube[FACE_COLOR_GREEN][1][2];
+
+          new_cube[FACE_COLOR_PURPLE][0][0] = old_cube[FACE_COLOR_ORANGE][0][0];
+          new_cube[FACE_COLOR_PURPLE][0][1] = old_cube[FACE_COLOR_ORANGE][0][1];
+          new_cube[FACE_COLOR_PURPLE][0][2] = old_cube[FACE_COLOR_ORANGE][0][2];
         }
         else {
-          new_cube[FACE_COLOR_ORANGE][0][0] = old_cube[FACE_COLOR_PURPLE][0][0];
-          new_cube[FACE_COLOR_ORANGE][1][0] = old_cube[FACE_COLOR_PURPLE][0][1];
-          new_cube[FACE_COLOR_ORANGE][2][0] = old_cube[FACE_COLOR_PURPLE][0][2];
+          new_cube[FACE_COLOR_ORANGE][0][2] = old_cube[FACE_COLOR_PURPLE][0][0];
+          new_cube[FACE_COLOR_ORANGE][1][2] = old_cube[FACE_COLOR_PURPLE][0][1];
+          new_cube[FACE_COLOR_ORANGE][2][2] = old_cube[FACE_COLOR_PURPLE][0][2];
         }
 
         break;
