@@ -27,6 +27,7 @@ static char *colors[] = {
 };
 
 static char *twists[] = {
+  "no_twist",
   "clockwise",
   "counterclockwise"
 };
@@ -101,46 +102,50 @@ int main(int argc,char **argv)
 
   twist = m;
 
-  copy_cube((char *)new_cube,(char *)old_cube);
-
-  if (twist == TWIST_CLOCKWISE) {
-    new_cube[face_color][0][0] = old_cube[face_color][2][0];
-    new_cube[face_color][0][1] = old_cube[face_color][1][0];
-    new_cube[face_color][0][2] = old_cube[face_color][0][0];
-    new_cube[face_color][1][0] = old_cube[face_color][2][1];
-    new_cube[face_color][1][2] = old_cube[face_color][0][1];
-    new_cube[face_color][2][0] = old_cube[face_color][2][2];
-    new_cube[face_color][2][1] = old_cube[face_color][1][2];
-    new_cube[face_color][2][2] = old_cube[face_color][0][2];
-  }
+  if (twist == TWIST_NO_TWIST)
+    ;
   else {
-    new_cube[face_color][0][0] = old_cube[face_color][0][2];
-    new_cube[face_color][0][1] = old_cube[face_color][1][2];
-    new_cube[face_color][0][2] = old_cube[face_color][2][2];
-    new_cube[face_color][1][0] = old_cube[face_color][0][1];
-    new_cube[face_color][1][2] = old_cube[face_color][2][1];
-    new_cube[face_color][2][0] = old_cube[face_color][0][0];
-    new_cube[face_color][2][1] = old_cube[face_color][1][0];
-    new_cube[face_color][2][2] = old_cube[face_color][2][0];
+    copy_cube((char *)new_cube,(char *)old_cube);
+
+    if (twist == TWIST_CLOCKWISE) {
+      new_cube[face_color][0][0] = old_cube[face_color][2][0];
+      new_cube[face_color][0][1] = old_cube[face_color][1][0];
+      new_cube[face_color][0][2] = old_cube[face_color][0][0];
+      new_cube[face_color][1][0] = old_cube[face_color][2][1];
+      new_cube[face_color][1][2] = old_cube[face_color][0][1];
+      new_cube[face_color][2][0] = old_cube[face_color][2][2];
+      new_cube[face_color][2][1] = old_cube[face_color][1][2];
+      new_cube[face_color][2][2] = old_cube[face_color][0][2];
+    }
+    else {
+      new_cube[face_color][0][0] = old_cube[face_color][0][2];
+      new_cube[face_color][0][1] = old_cube[face_color][1][2];
+      new_cube[face_color][0][2] = old_cube[face_color][2][2];
+      new_cube[face_color][1][0] = old_cube[face_color][0][1];
+      new_cube[face_color][1][2] = old_cube[face_color][2][1];
+      new_cube[face_color][2][0] = old_cube[face_color][0][0];
+      new_cube[face_color][2][1] = old_cube[face_color][1][0];
+      new_cube[face_color][2][2] = old_cube[face_color][2][0];
+    }
+
+    switch(face_color) {
+      case FACE_COLOR_RED:
+        if (twist == TWIST_CLOCKWISE) {
+          new_cube[FACE_COLOR_ORANGE][0][0] = old_cube[FACE_COLOR_BLUE][2][0];
+          new_cube[FACE_COLOR_ORANGE][1][0] = old_cube[FACE_COLOR_BLUE][2][1];
+          new_cube[FACE_COLOR_ORANGE][2][0] = old_cube[FACE_COLOR_BLUE][2][2];
+        }
+        else {
+          new_cube[FACE_COLOR_ORANGE][0][0] = old_cube[FACE_COLOR_PURPLE][0][0];
+          new_cube[FACE_COLOR_ORANGE][1][0] = old_cube[FACE_COLOR_PURPLE][0][1];
+          new_cube[FACE_COLOR_ORANGE][2][0] = old_cube[FACE_COLOR_PURPLE][0][2];
+        }
+
+        break;
+    }
+
+    copy_cube((char *)old_cube,(char *)new_cube);
   }
-
-  switch(face_color) {
-    case FACE_COLOR_RED:
-      if (twist == TWIST_CLOCKWISE) {
-        new_cube[FACE_COLOR_ORANGE][0][0] = old_cube[FACE_COLOR_BLUE][2][0];
-        new_cube[FACE_COLOR_ORANGE][1][0] = old_cube[FACE_COLOR_BLUE][2][1];
-        new_cube[FACE_COLOR_ORANGE][2][0] = old_cube[FACE_COLOR_BLUE][2][2];
-      }
-      else {
-        new_cube[FACE_COLOR_ORANGE][0][0] = old_cube[FACE_COLOR_PURPLE][0][0];
-        new_cube[FACE_COLOR_ORANGE][1][0] = old_cube[FACE_COLOR_PURPLE][0][1];
-        new_cube[FACE_COLOR_ORANGE][2][0] = old_cube[FACE_COLOR_PURPLE][0][2];
-      }
-
-      break;
-  }
-
-  copy_cube((char *)old_cube,(char *)new_cube);
 
   printf("<!DOCTYPE html>\n");
   printf("<html>\n");
@@ -158,7 +163,7 @@ int main(int argc,char **argv)
         printf("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp\n");
 
       for (o = 0; o < FACE_WIDTH; o++)
-        printf("<img src=\"%s3.bmp\">\n",colors[old_cube[m][n][o]]);
+        printf("<img src=\"%s.bmp\">\n",colors[old_cube[m][n][o]]);
     }
   }
 

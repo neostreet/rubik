@@ -11,6 +11,7 @@
 
 #define NUM_SQUARES (NUM_FACES * FACE_WIDTH * FACE_HEIGHT)
 
-#define TWIST_CLOCKWISE         0
-#define TWIST_COUNTERCLOCKWISE  1
-#define NUM_TWISTS              2
+#define TWIST_NO_TWIST          0
+#define TWIST_CLOCKWISE         1
+#define TWIST_COUNTERCLOCKWISE  2
+#define NUM_TWISTS              3
