@@ -15,3 +15,30 @@
 #define TWIST_CLOCKWISE         1
 #define TWIST_COUNTERCLOCKWISE  2
 #define NUM_TWISTS              3
+
+#ifdef DEFINE_GLOBALS_HERE
+char old_cube[NUM_FACES][FACE_HEIGHT][FACE_WIDTH];
+char new_cube[NUM_FACES][FACE_HEIGHT][FACE_WIDTH];
+
+char *colors[] = {
+  "red",
+  "orange",
+  "yellow",
+  "green",
+  "blue",
+  "purple"
+};
+
+char *twists[] = {
+  "no_twist",
+  "clockwise",
+  "counterclockwise"
+};
+#else
+extern char old_cube[NUM_FACES][FACE_HEIGHT][FACE_WIDTH];
+extern char new_cube[NUM_FACES][FACE_HEIGHT][FACE_WIDTH];
+extern char *colors[];
+extern char *twists[];
+#endif
+
+void copy_cube(char *dest,char *source);
