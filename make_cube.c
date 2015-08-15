@@ -31,6 +31,8 @@ int main(int argc,char **argv)
   int face_color;
   int twist;
   int bytes_to_io;
+  char *old_cpt;
+  char *new_cpt;
 
   if ((argc < 5) || (argc > 6)) {
     printf(usage);
@@ -117,62 +119,16 @@ int main(int argc,char **argv)
   else {
     copy_cube((char *)new_cube,(char *)old_cube);
 
-    if (twist == TWIST_CLOCKWISE) {
-      new_cube[face_color][0][0] = old_cube[face_color][2][0];
-      new_cube[face_color][0][1] = old_cube[face_color][1][0];
-      new_cube[face_color][0][2] = old_cube[face_color][0][0];
-      new_cube[face_color][1][0] = old_cube[face_color][2][1];
-      new_cube[face_color][1][2] = old_cube[face_color][0][1];
-      new_cube[face_color][2][0] = old_cube[face_color][2][2];
-      new_cube[face_color][2][1] = old_cube[face_color][1][2];
-      new_cube[face_color][2][2] = old_cube[face_color][0][2];
-    }
-    else {
-      new_cube[face_color][0][0] = old_cube[face_color][0][2];
-      new_cube[face_color][0][1] = old_cube[face_color][1][2];
-      new_cube[face_color][0][2] = old_cube[face_color][2][2];
-      new_cube[face_color][1][0] = old_cube[face_color][0][1];
-      new_cube[face_color][1][2] = old_cube[face_color][2][1];
-      new_cube[face_color][2][0] = old_cube[face_color][0][0];
-      new_cube[face_color][2][1] = old_cube[face_color][1][0];
-      new_cube[face_color][2][2] = old_cube[face_color][2][0];
-    }
+    old_cpt = (char *)old_cube;
+    new_cpt = (char *)new_cube;
 
     switch(face_color) {
       case FACE_COLOR_RED:
-        if (twist == TWIST_CLOCKWISE) {
-          new_cube[FACE_COLOR_ORANGE][0][0] = old_cube[FACE_COLOR_BLUE][2][0];
-          new_cube[FACE_COLOR_ORANGE][1][0] = old_cube[FACE_COLOR_BLUE][2][1];
-          new_cube[FACE_COLOR_ORANGE][2][0] = old_cube[FACE_COLOR_BLUE][2][2];
-
-          new_cube[FACE_COLOR_GREEN][0][2] = old_cube[FACE_COLOR_PURPLE][0][0];
-          new_cube[FACE_COLOR_GREEN][1][2] = old_cube[FACE_COLOR_PURPLE][0][1];
-          new_cube[FACE_COLOR_GREEN][2][2] = old_cube[FACE_COLOR_PURPLE][0][2];
-
-          new_cube[FACE_COLOR_BLUE][2][0] = old_cube[FACE_COLOR_GREEN][0][2];
-          new_cube[FACE_COLOR_BLUE][2][1] = old_cube[FACE_COLOR_GREEN][1][2];
-          new_cube[FACE_COLOR_BLUE][2][2] = old_cube[FACE_COLOR_GREEN][2][2];
-
-          new_cube[FACE_COLOR_PURPLE][0][0] = old_cube[FACE_COLOR_ORANGE][0][0];
-          new_cube[FACE_COLOR_PURPLE][0][1] = old_cube[FACE_COLOR_ORANGE][1][0];
-          new_cube[FACE_COLOR_PURPLE][0][2] = old_cube[FACE_COLOR_ORANGE][2][0];
-        }
-        else {
-          new_cube[FACE_COLOR_BLUE][2][0] = old_cube[FACE_COLOR_ORANGE][0][0];
-          new_cube[FACE_COLOR_BLUE][2][1] = old_cube[FACE_COLOR_ORANGE][1][0];
-          new_cube[FACE_COLOR_BLUE][2][2] = old_cube[FACE_COLOR_ORANGE][2][0];
-
-          new_cube[FACE_COLOR_PURPLE][0][0] = old_cube[FACE_COLOR_GREEN][0][2];
-          new_cube[FACE_COLOR_PURPLE][0][1] = old_cube[FACE_COLOR_GREEN][1][2];
-          new_cube[FACE_COLOR_PURPLE][0][2] = old_cube[FACE_COLOR_GREEN][2][2];
-
-          new_cube[FACE_COLOR_GREEN][0][2] = old_cube[FACE_COLOR_BLUE][2][0];
-          new_cube[FACE_COLOR_GREEN][1][2] = old_cube[FACE_COLOR_BLUE][2][1];
-          new_cube[FACE_COLOR_GREEN][2][2] = old_cube[FACE_COLOR_BLUE][2][2];
-
-          new_cube[FACE_COLOR_ORANGE][0][0] = old_cube[FACE_COLOR_PURPLE][0][0];
-          new_cube[FACE_COLOR_ORANGE][1][0] = old_cube[FACE_COLOR_PURPLE][0][1];
-          new_cube[FACE_COLOR_ORANGE][2][0] = old_cube[FACE_COLOR_PURPLE][0][2];
+        for (n = 0; n < NUM_MOVES_IN_TWIST; n++) {
+          if (twist == TWIST_CLOCKWISE)
+            new_cpt[moves[n].to] = old_cpt[moves[n].from];
+          else
+            new_cpt[moves[n].from] = old_cpt[moves[n].to];
         }
 
         break;

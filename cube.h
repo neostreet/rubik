@@ -16,6 +16,13 @@
 #define TWIST_COUNTERCLOCKWISE  2
 #define NUM_TWISTS              3
 
+struct move {
+  char from;
+  char to;
+};
+
+#define NUM_MOVES_IN_TWIST 20
+
 #ifdef DEFINE_GLOBALS_HERE
 char old_cube[NUM_FACES][FACE_HEIGHT][FACE_WIDTH];
 char new_cube[NUM_FACES][FACE_HEIGHT][FACE_WIDTH];
@@ -34,11 +41,35 @@ char *twists[] = {
   "clockwise",
   "counterclockwise"
 };
+
+struct move moves[NUM_MOVES_IN_TWIST] = {
+  { 0, 2},
+  { 1, 5},
+  { 2, 8},
+  { 3, 1},
+  { 5, 7},
+  { 6, 0},
+  { 7, 3},
+  { 8, 6},
+  { 9, 45},
+  { 12, 46},
+  { 15, 47},
+  { 29, 42},
+  { 32, 43},
+  { 35, 44},
+  { 42, 9},
+  { 43, 12},
+  { 44, 15},
+  { 45, 29},
+  { 46, 32},
+  { 47, 35},
+};
 #else
 extern char old_cube[NUM_FACES][FACE_HEIGHT][FACE_WIDTH];
 extern char new_cube[NUM_FACES][FACE_HEIGHT][FACE_WIDTH];
 extern char *colors[];
 extern char *twists[];
+extern struct move moves[NUM_MOVES_IN_TWIST];
 #endif
 
 void copy_cube(char *dest,char *source);

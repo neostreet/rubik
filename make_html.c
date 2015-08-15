@@ -78,8 +78,11 @@ int main(int argc,char **argv)
       if (m > 0)
         fprintf(fptr,"&nbsp; &nbsp; &nbsp; &nbsp; &nbsp\n");
 
-      for (o = 0; o < FACE_WIDTH; o++)
-        fprintf(fptr,"<img src=\"%s.bmp\">\n",colors[old_cube[m][n][o]]);
+      for (o = 0; o < FACE_WIDTH; o++) {
+        fprintf(fptr,"<img src=\"%s.bmp\" id=\"%s%d\">\n",
+          colors[old_cube[m][n][o]],
+          colors[old_cube[m][n][o]],n * FACE_WIDTH + o);
+      }
     }
   }
 
